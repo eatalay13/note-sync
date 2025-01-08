@@ -1,40 +1,44 @@
-import electronLogo from './assets/electron.svg'
-import Versions from './components/Versions'
+import { useState } from 'react'
+import './assets/notes.css'
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  const [notes, setNotes] = useState<string[]>([])
+  const [currentNote, setCurrentNote] = useState('')
+
+  const handleAddNote = (): void => {
+    if (currentNote.trim()) {
+      setNotes([...notes, currentNote])
+      setCurrentNote('')
+    }
+  }
+
+  const handleDeleteNote = (index: number): void => {
+    const newNotes = notes.filter((_, i) => i !== index)
+    setNotes(newNotes)
+  }
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <div className="action">
-        <button onClick={() => alert('Hello world')}>
-          <span>Hello world</span>
-        </button>
+    <div className="notes-container">
+      <h1>Not Defteri</h1>
+
+      <div className="note-input">
+        <textarea
+          value={currentNote}
+          onChange={(e) => setCurrentNote(e.target.value)}
+          placeholder="Notunuzu buraya yazın..."
+        />
+        <button onClick={handleAddNote}>Not Ekle</button>
       </div>
 
-      <Versions></Versions>
-    </>
+      <div className="notes-list">
+        {notes.map((note, index) => (
+          <div key={index} className="note-item">
+            <p>{note}</p>
+            <button onClick={() => handleDeleteNote(index)}>Sil</button>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
 
