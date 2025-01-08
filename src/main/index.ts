@@ -12,6 +12,10 @@ function createWindow(): void {
     height: 768,
     show: false,
     frame: false,
+    titleBarStyle: 'hiddenInset',
+    roundedCorners: true,
+    titleBarOverlay: true,
+    transparent: true,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
