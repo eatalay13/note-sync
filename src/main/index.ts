@@ -12,6 +12,7 @@ function createWindow(): void {
     height: 768,
     show: false,
     frame: false,
+    title: 'Note Sync',
     titleBarStyle: 'hiddenInset',
     roundedCorners: true,
     titleBarOverlay: true,
@@ -70,7 +71,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('com.note-sync.app')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -90,6 +91,8 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
+
+app.setName('Note Sync')
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
