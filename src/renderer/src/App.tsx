@@ -1,63 +1,29 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import './assets/notes.css'
+import MarkdownEditor from './components/MarkdownEditor'
+import SettingsPanel from './components/SettingsPanel'
+import SolutionExplorer from './components/SolutionExplorer'
 import TitleBar from './components/TitleBar'
 
 function App(): JSX.Element {
-  const [notes, setNotes] = useState<string[]>([])
-  const [currentNote, setCurrentNote] = useState('')
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const [markdownContent, setMarkdownContent] = useState('')
+  const [isSettingsVisible, setIsSettingsVisible] = useState(true)
 
-  // Textarea'ya focus'u yönlendiren yardımcı fonksiyon
-  const focusTextarea = (): void => {
-    if (textareaRef.current) {
-      textareaRef.current.focus()
-    }
+  const toggleSettings = (): void => {
+    setIsSettingsVisible(!isSettingsVisible)
   }
-
-  const handleAddNote = (): void => {
-    if (currentNote.trim()) {
-      setNotes([...notes, currentNote])
-      setCurrentNote('')
-      focusTextarea() // Not ekledikten sonra focus'u textarea'ya yönlendir
-    }
-  }
-
-  const handleDeleteNote = (index: number): void => {
-    const onayla = window.confirm('Bu notu silmek istediğinizden emin misiniz?')
-    if (onayla) {
-      const newNotes = notes.filter((_, i) => i !== index)
-      setNotes(newNotes)
-      focusTextarea() // Not sildikten sonra focus'u textarea'ya yönlendir
-    }
-  }
-
-  // Sayfa yüklendiğinde textarea'ya focus'u yönlendir
-  useEffect(() => {
-    focusTextarea()
-  }, [])
 
   return (
     <div className="app-container">
-      <TitleBar />
-      <div className="notes-container">
-        <div className="note-input">
-          <textarea
-            ref={textareaRef}
-            value={currentNote}
-            onChange={(e) => setCurrentNote(e.target.value)}
-            placeholder="Notunuzu buraya yazın..."
-          />
-          <button onClick={handleAddNote}>Not Ekle</button>
-        </div>
-
-        <div className="notes-list">
-          {notes.map((note, index) => (
-            <div key={index} className="note-item">
-              <p>{note}</p>
-              <button onClick={() => handleDeleteNote(index)}>Sil</button>
-            </div>
-          ))}
-        </div>
+      <TitleBar onToggleSettings={toggleSettings} />
+      <div className="main-content">
+        <SolutionExplorer />
+        <MarkdownEditor
+          value={markdownContent}
+          onChange={setMarkdownContent}
+          isSettingsVisible={isSettingsVisible}
+        />
+        <SettingsPanel isVisible={isSettingsVisible} onToggle={toggleSettings} />
       </div>
     </div>
   )

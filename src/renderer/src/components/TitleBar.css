@@ -104,3 +104,13 @@
 .app-container {
   padding-top: 36px;
 }
+
+.window-control.settings {
+  font-size: 16px;
+  padding-top: 2px;
+}
+
+.window-control.settings:hover {
+  background: var(--ev-c-gray-2);
+  color: var(--text-primary);
+}

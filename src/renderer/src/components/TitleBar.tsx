@@ -3,11 +3,10 @@ import './TitleBar.css'
 
 interface MenuItem {
   label: string
-  submenu?: MenuItem[]
-  action?: () => void
+  submenu?: { label: string; action?: () => void }[]
 }
 
-const TitleBar = (): JSX.Element => {
+const TitleBar = ({ onToggleSettings }: { onToggleSettings: () => void }): JSX.Element => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
 
   const menuItems: MenuItem[] = [
@@ -28,13 +27,6 @@ const TitleBar = (): JSX.Element => {
         { label: 'Kopyala', action: () => console.log('Kopyala') },
         { label: 'Yapıştır', action: () => console.log('Yapıştır') }
       ]
-    },
-    {
-      label: 'Görünüm',
-      submenu: [
-        { label: 'Yakınlaştır', action: () => console.log('Yakınlaştır') },
-        { label: 'Uzaklaştır', action: () => console.log('Uzaklaştır') }
-      ]
     }
   ]
 
@@ -51,40 +43,40 @@ const TitleBar = (): JSX.Element => {
 
   return (
     <div className="title-bar">
-      <div className="title-bar-buttons">
-        <div className="window-title">Not Defteri</div>
-        <div className="menu-bar">
-          {menuItems.map((item) => (
-            <div key={item.label} className="menu-item">
-              <div
-                className={`menu-label ${activeMenu === item.label ? 'active' : ''}`}
-                onClick={() => handleMenuClick(item.label)}
-              >
-                {item.label}
-              </div>
-              {activeMenu === item.label && item.submenu && (
-                <div className="submenu">
-                  {item.submenu.map((subItem) => (
-                    <div
-                      key={subItem.label}
-                      className="submenu-item"
-                      onClick={() => handleMenuItemClick(subItem.action)}
-                    >
-                      {subItem.label}
-                    </div>
-                  ))}
-                </div>
-              )}
+      <div className="menu-bar">
+        {menuItems.map((item) => (
+          <div key={item.label} className="menu-item">
+            <div
+              className={`menu-label ${activeMenu === item.label ? 'active' : ''}`}
+              onClick={() => handleMenuClick(item.label)}
+            >
+              {item.label}
             </div>
-          ))}
-        </div>
+            {activeMenu === item.label && item.submenu && (
+              <div className="submenu">
+                {item.submenu.map((subItem) => (
+                  <div
+                    key={subItem.label}
+                    className="submenu-item"
+                    onClick={() => handleMenuItemClick(subItem.action)}
+                  >
+                    {subItem.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
       <div className="window-controls">
+        <button className="window-control settings" onClick={onToggleSettings}>
+          ⚙️
+        </button>
         <button
           className="window-control minimize"
           onClick={() => window.electron.ipcRenderer.send('minimize-window')}
         >
-          _
+          -
         </button>
         <button
           className="window-control maximize"

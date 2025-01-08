@@ -1,0 +1,23 @@
+.solution-explorer {
+  width: 250px;
+  height: calc(100vh - 36px);
+  background: var(--panel-background);
+  border-right: 1px solid var(--border-color);
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.file-list {
+  margin-top: 1rem;
+}
+
+.file-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.file-item:hover {
+  background: var(--ev-c-gray-2);
+  color: var(--text-primary);
+}
