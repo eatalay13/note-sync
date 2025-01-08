@@ -3,6 +3,7 @@ import './assets/notes.css'
 import MarkdownEditor from './components/MarkdownEditor'
 import SettingsPanel from './components/SettingsPanel'
 import SolutionExplorer from './components/SolutionExplorer'
+import StatusBar from './components/StatusBar'
 import TitleBar from './components/TitleBar'
 
 function App(): JSX.Element {
@@ -23,8 +24,12 @@ function App(): JSX.Element {
           onChange={setMarkdownContent}
           isSettingsVisible={isSettingsVisible}
         />
-        <SettingsPanel isVisible={isSettingsVisible} onToggle={toggleSettings} />
+        <SettingsPanel
+          isVisible={isSettingsVisible}
+          onToggle={toggleSettings}
+        />
       </div>
+      <StatusBar />
     </div>
   )
 }

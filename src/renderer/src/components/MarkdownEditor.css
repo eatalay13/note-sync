@@ -1,7 +1,6 @@
 .markdown-editor {
   flex: 1;
   height: calc(100vh - 36px);
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   transition: margin-right 0.3s ease;
@@ -16,7 +15,7 @@
   height: 100%;
   background: var(--editor-background);
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  border-radius: 0;
   padding: 1rem;
   resize: none;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;

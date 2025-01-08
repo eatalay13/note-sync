@@ -14,7 +14,10 @@
   display: flex;
   overflow: hidden;
   width: 100%;
-  height: calc(100vh - 36px); /* Ekran yüksekliği - TitleBar yüksekliği */
+  height: calc(
+    100vh - 72px
+  ); /* Ekran yüksekliği - TitleBar ve StatusBar yüksekliği */
+  position: relative;
 }
 
 .notes-container {
