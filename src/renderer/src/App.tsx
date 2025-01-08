@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './assets/notes.css'
+import TitleBar from './components/TitleBar'
 
 function App(): JSX.Element {
   const [notes, setNotes] = useState<string[]>([])
@@ -36,26 +37,27 @@ function App(): JSX.Element {
   }, [])
 
   return (
-    <div className="notes-container">
-      <h1>Not Defteri</h1>
+    <div className="app-container">
+      <TitleBar />
+      <div className="notes-container">
+        <div className="note-input">
+          <textarea
+            ref={textareaRef}
+            value={currentNote}
+            onChange={(e) => setCurrentNote(e.target.value)}
+            placeholder="Notunuzu buraya yazın..."
+          />
+          <button onClick={handleAddNote}>Not Ekle</button>
+        </div>
 
-      <div className="note-input">
-        <textarea
-          ref={textareaRef}
-          value={currentNote}
-          onChange={(e) => setCurrentNote(e.target.value)}
-          placeholder="Notunuzu buraya yazın..."
-        />
-        <button onClick={handleAddNote}>Not Ekle</button>
-      </div>
-
-      <div className="notes-list">
-        {notes.map((note, index) => (
-          <div key={index} className="note-item">
-            <p>{note}</p>
-            <button onClick={() => handleDeleteNote(index)}>Sil</button>
-          </div>
-        ))}
+        <div className="notes-list">
+          {notes.map((note, index) => (
+            <div key={index} className="note-item">
+              <p>{note}</p>
+              <button onClick={() => handleDeleteNote(index)}>Sil</button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

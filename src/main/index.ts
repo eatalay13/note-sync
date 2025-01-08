@@ -11,11 +11,14 @@ function createWindow(): void {
     width: 900,
     height: 670,
     show: false,
+    frame: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      contextIsolation: true,
+      nodeIntegration: true
     }
   })
 
@@ -35,6 +38,27 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  // Pencere kontrolleri için IPC dinleyicileri
+  ipcMain.on('minimize-window', () => {
+    mainWindow.minimize()
+  })
+
+  ipcMain.on('maximize-window', () => {
+    if (mainWindow.isMaximized()) {
+      mainWindow.unmaximize()
+    } else {
+      mainWindow.maximize()
+    }
+  })
+
+  ipcMain.on('close-window', () => {
+    mainWindow.close()
+  })
+
+  ipcMain.on('quit-app', () => {
+    app.quit()
+  })
 }
 
 // This method will be called when Electron has finished
