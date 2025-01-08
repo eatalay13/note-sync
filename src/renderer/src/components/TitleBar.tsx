@@ -6,7 +6,11 @@ interface MenuItem {
   submenu?: { label: string; action?: () => void }[]
 }
 
-const TitleBar = ({ onToggleSettings }: { onToggleSettings: () => void }): JSX.Element => {
+const TitleBar = ({
+  onToggleSettings
+}: {
+  onToggleSettings: () => void
+}): JSX.Element => {
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
 
   const menuItems: MenuItem[] = [
@@ -15,7 +19,10 @@ const TitleBar = ({ onToggleSettings }: { onToggleSettings: () => void }): JSX.E
       submenu: [
         { label: 'Yeni Not', action: () => console.log('Yeni Not') },
         { label: 'Tümünü Kaydet', action: () => console.log('Tümünü Kaydet') },
-        { label: 'Çıkış', action: () => window.electron.ipcRenderer.send('quit-app') }
+        {
+          label: 'Çıkış',
+          action: () => window.electron.ipcRenderer.send('quit-app')
+        }
       ]
     },
     {
