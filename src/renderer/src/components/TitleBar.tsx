@@ -84,7 +84,7 @@ const TitleBar = (): JSX.Element => {
           className="window-control minimize"
           onClick={() => window.electron.ipcRenderer.send('minimize-window')}
         >
-          ─
+          _
         </button>
         <button
           className="window-control maximize"
