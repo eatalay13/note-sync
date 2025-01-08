@@ -14,6 +14,7 @@ const SolutionExplorer = (): JSX.Element => {
       <div className="file-list">
         {files.map((file, index) => (
           <div key={index} className="file-item">
+            <span className="file-icon">📄</span>
             {file}
           </div>
         ))}

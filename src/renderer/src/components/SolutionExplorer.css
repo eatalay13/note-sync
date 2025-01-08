@@ -5,6 +5,8 @@
   border-right: 1px solid var(--border-color);
   padding: 1rem;
   overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
 }
 
 .file-list {
@@ -15,9 +17,17 @@
   padding: 0.5rem;
   cursor: pointer;
   color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
 }
 
 .file-item:hover {
   background: var(--ev-c-gray-2);
   color: var(--text-primary);
+}
+
+.file-icon {
+  margin-right: 8px;
+  font-size: 18px;
 }

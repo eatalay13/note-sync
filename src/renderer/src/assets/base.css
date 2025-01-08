@@ -121,3 +121,35 @@ body,
   display: flex;
   flex-direction: column;
 }
+
+::-webkit-scrollbar {
+  width: 8px; /* Kaydırma çubuğu genişliği */
+  height: 8px; /* Kaydırma çubuğu yüksekliği */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--ev-c-gray-2); /* Kaydırma çubuğu rengi */
+  border-radius: 4px; /* Kenar yuvarlama */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ev-c-gray-3); /* Hover durumu için renk */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ev-c-black-soft); /* Kaydırma çubuğu arka plan rengi */
+  border-radius: 4px; /* Kenar yuvarlama */
+}
+
+/* Koyu tema için */
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background-color: var(--ev-c-gray-2);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ev-c-gray-3);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-track {
+  background: var(--ev-c-black-soft);
+}
